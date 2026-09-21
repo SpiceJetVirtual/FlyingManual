@@ -1,0 +1,722 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --red: #e30613;
+  --red2: #ff2634;
+  --black: #050505;
+  --panel: #0d0d0f;
+  --line: rgba(255, 255, 255, 0.10);
+  --muted: #99999f;
+  --white: #f7f7f7;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(227, 6, 19, 0.12),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 10% 80%,
+      rgba(227, 6, 19, 0.07),
+      transparent 30%
+    ),
+    var(--black);
+
+  color: var(--white);
+
+  font-family: Inter, Arial, sans-serif;
+}
+
+
+/* GRID BACKGROUND */
+
+body::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.28;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 45px 45px;
+}
+
+
+/* TOP BAR */
+
+.topbar {
+  position: fixed;
+
+  z-index: 50;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 24px;
+
+  background: rgba(5, 5, 5, 0.78);
+
+  backdrop-filter: blur(16px);
+
+  border-bottom: 1px solid var(--line);
+}
+
+
+.menu-btn {
+  width: 44px;
+  height: 44px;
+
+  border: 1px solid var(--line);
+
+  background: #0c0c0e;
+
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+
+  gap: 5px;
+
+  padding: 0 11px;
+
+  cursor: pointer;
+}
+
+
+.menu-btn span {
+  display: block;
+
+  height: 2px;
+
+  background: #fff;
+
+  border-radius: 4px;
+
+  transition: 0.25s;
+}
+
+
+.brand {
+  margin-left: 18px;
+
+  font-family: Rajdhani, sans-serif;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  font-size: 21px;
+}
+
+
+.brand span,
+.side-brand span {
+  color: var(--red);
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+  position: fixed;
+
+  z-index: 100;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+  width: 310px;
+
+  padding: 24px 18px;
+
+  background: #080809;
+
+  border-right: 1px solid rgba(227, 6, 19, 0.25);
+
+  transform: translateX(-105%);
+
+  transition: transform 0.3s ease;
+
+  box-shadow: 20px 0 60px rgba(0, 0, 0, 0.45);
+}
+
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+
+.side-head {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 40px;
+}
+
+
+.side-brand {
+  font: 700 24px Rajdhani, sans-serif;
+
+  letter-spacing: 1.5px;
+}
+
+
+.close-btn {
+  background: none;
+
+  border: 0;
+
+  color: #fff;
+
+  font-size: 34px;
+
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+
+/* NAVIGATION */
+
+nav {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+.nav-item {
+  text-align: left;
+
+  border: 1px solid transparent;
+
+  border-radius: 10px;
+
+  padding: 15px 16px;
+
+  background: transparent;
+
+  color: #b7b7bb;
+
+  font: 600 15px Inter, sans-serif;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+.nav-item:hover,
+.nav-item.active {
+  color: #fff;
+
+  background: rgba(227, 6, 19, 0.10);
+
+  border-color: rgba(227, 6, 19, 0.28);
+}
+
+
+.nav-item.active {
+  box-shadow: inset 3px 0 var(--red);
+}
+
+
+/* OVERLAY */
+
+.overlay {
+  position: fixed;
+
+  z-index: 90;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.68);
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transition: 0.25s;
+}
+
+
+.overlay.show {
+  opacity: 1;
+
+  visibility: visible;
+}
+
+
+/* MAIN */
+
+main {
+  padding-top: 72px;
+}
+
+
+.page-section {
+  display: none;
+
+  min-height: calc(100vh - 72px);
+
+  padding: 70px 6vw 90px;
+}
+
+
+.page-section.active {
+  display: block;
+}
+
+
+/* HOME */
+
+.hero {
+  max-width: 950px;
+
+  margin: 12vh auto 0;
+
+  text-align: center;
+}
+
+
+.eyebrow {
+  color: var(--red);
+
+  font: 700 12px Rajdhani, sans-serif;
+
+  letter-spacing: 3px;
+}
+
+
+.hero h1 {
+  font: 700 clamp(64px, 12vw, 150px) / 0.82 Rajdhani, sans-serif;
+
+  letter-spacing: 3px;
+
+  margin: 22px 0;
+}
+
+
+.hero h1 span {
+  color: var(--red);
+}
+
+
+.hero-copy {
+  max-width: 650px;
+
+  margin: 35px auto 0;
+
+  color: #aaa;
+
+  line-height: 1.8;
+
+  font-size: 15px;
+}
+
+
+.hero-line {
+  width: 90px;
+
+  height: 3px;
+
+  background: var(--red);
+
+  margin: 35px auto;
+
+  box-shadow: 0 0 25px rgba(227, 6, 19, 0.55);
+}
+
+
+/* SECTION HEADINGS */
+
+.section-heading {
+  max-width: 1100px;
+
+  margin: 0 auto 38px;
+}
+
+
+.section-heading h2 {
+  font: 700 clamp(42px, 7vw, 76px) / 1 Rajdhani, sans-serif;
+
+  margin: 10px 0 8px;
+
+  letter-spacing: 1px;
+}
+
+
+.section-heading p {
+  color: var(--muted);
+
+  margin: 0;
+}
+
+
+/* AIRCRAFT */
+
+.aircraft-grid {
+  max-width: 1100px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+
+.aircraft-card {
+  min-height: 230px;
+
+  padding: 28px;
+
+  border: 1px solid var(--line);
+
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #151518,
+      #09090a
+    );
+
+  position: relative;
+
+  overflow: hidden;
+
+  transition: 0.25s;
+}
+
+
+.aircraft-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(227, 6, 19, 0.5);
+}
+
+
+.aircraft-card::after {
+  content: "";
+
+  position: absolute;
+
+  right: -50px;
+  bottom: -60px;
+
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+
+  background: rgba(227, 6, 19, 0.08);
+}
+
+
+.aircraft-number {
+  font: 700 13px Rajdhani, sans-serif;
+
+  color: var(--red);
+
+  letter-spacing: 2px;
+}
+
+
+.aircraft-card h3 {
+  font: 700 29px Rajdhani, sans-serif;
+
+  margin: 55px 0 8px;
+}
+
+
+.aircraft-card p {
+  margin: 0;
+
+  color: #8d8d93;
+
+  font-size: 13px;
+}
+
+
+/* RANKS */
+
+.rank-list {
+  max-width: 900px;
+
+  margin: auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+
+.rank-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 25px;
+
+  padding: 17px 20px;
+
+  border: 1px solid var(--line);
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #111113,
+      #09090a
+    );
+
+  min-height: 92px;
+}
+
+
+.hours {
+  min-width: 92px;
+
+  text-align: center;
+
+  color: var(--red);
+
+  font: 700 28px Rajdhani, sans-serif;
+
+  line-height: 0.8;
+}
+
+
+.hours span {
+  font-size: 10px;
+
+  letter-spacing: 2px;
+}
+
+
+.rank-card h3 {
+  margin: 0 0 5px;
+
+  font: 700 22px Rajdhani, sans-serif;
+}
+
+
+.rank-card p {
+  margin: 0;
+
+  color: #99999f;
+
+  font-size: 13px;
+}
+
+
+/* ROUTE TABLE */
+
+.table-wrap {
+  max-width: 1250px;
+
+  margin: auto;
+
+  border: 1px solid var(--line);
+
+  border-radius: 14px;
+
+  overflow: auto;
+
+  background: #09090a;
+
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.25);
+}
+
+
+table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  min-width: 900px;
+}
+
+
+th {
+  position: sticky;
+
+  top: 0;
+
+  background: #151518;
+
+  color: #ddd;
+
+  text-align: left;
+
+  padding: 14px 15px;
+
+  font: 700 12px Rajdhani, sans-serif;
+
+  letter-spacing: 1.2px;
+
+  text-transform: uppercase;
+
+  border-bottom: 1px solid rgba(227, 6, 19, 0.35);
+}
+
+
+td {
+  padding: 12px 15px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+
+  font-size: 12px;
+
+  color: #b9b9bd;
+
+  white-space: nowrap;
+}
+
+
+tbody tr:hover {
+  background: rgba(227, 6, 19, 0.055);
+}
+
+
+td:first-child {
+  color: #fff;
+
+  font-weight: 700;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .topbar {
+    height: 64px;
+
+    padding: 0 16px;
+  }
+
+
+  .brand {
+    font-size: 18px;
+
+    margin-left: 12px;
+  }
+
+
+  main {
+    padding-top: 64px;
+  }
+
+
+  .page-section {
+    min-height: calc(100vh - 64px);
+
+    padding: 55px 20px 70px;
+  }
+
+
+  .hero {
+    margin-top: 11vh;
+  }
+
+
+  .hero h1 {
+    font-size: 72px;
+  }
+
+
+  .hero-copy {
+    font-size: 14px;
+  }
+
+
+  .aircraft-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .aircraft-card {
+    min-height: 190px;
+  }
+
+
+  .aircraft-card h3 {
+    margin-top: 38px;
+  }
+
+
+  .rank-card {
+    gap: 14px;
+
+    padding: 14px;
+  }
+
+
+  .hours {
+    min-width: 70px;
+
+    font-size: 23px;
+  }
+
+
+  .rank-card h3 {
+    font-size: 19px;
+  }
+
+
+  .rank-card p {
+    font-size: 12px;
+
+    line-height: 1.5;
+  }
+
+
+  .sidebar {
+    width: min(310px, 88vw);
+  }
+
+  }
